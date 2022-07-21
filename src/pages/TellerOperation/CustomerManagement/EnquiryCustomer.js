@@ -100,7 +100,12 @@ function EnquiryCustomer() {
                                     else temp = "Corporate"
                                     rows.push(createData(data.id, temp, data.GB_FullName, data.DocID, data.PhoneNumber))
                                 })
-                                
+                                console.log(rows)
+                                return (
+                                    <div>
+                                        123
+                                    </div>
+                                )
                               }}
                         >
                             Search
@@ -146,7 +151,7 @@ function EnquiryCustomer() {
 
                     </div>
                 
-
+ 
 
                 </AccordionDetails>
             </Accordion>
