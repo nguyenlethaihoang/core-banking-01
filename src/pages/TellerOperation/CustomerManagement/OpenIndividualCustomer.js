@@ -9,20 +9,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function checkName(a, b) {
-    checkName = 0
+    let temp = ""
     a.map((data, index) => {
-        // console.log("data")
-        // console.log(data.Name)
-        // console.log("b")
-        // console.log(b)
         if (data.Name == b)
         {
-            checkName = data.id
-            return data.id
+            temp = data.id.toString()
             
         }
     })
-    return checkName
+    return temp
+}
+
+function checkCode(a, b) {
+    let temp = ""
+    a.map((data, index) => {
+        if (data.Code == b)
+        {
+            temp = data.id.toString()
+            
+        }
+    })
+    return temp
 }
 
 function OpenIndividualCustomer() {
@@ -157,28 +164,38 @@ function OpenIndividualCustomer() {
                             // href="https://google.com"
                             onClick={() => {
                                 
-                                let temp = document.getElementById('sltCity/Province').textContent.toString();
-                                // temp = temp[0] + temp[1]
+                                let txtCity = document.getElementById('sltCity/Province').textContent.toString();
+                                let txtCountry = document.getElementById('sltGBCountry').textContent.toString();
+                                let txtNationality = document.getElementById('sltNationality').textContent.toString();
+                                let txtResidence = document.getElementById('sltResidence').textContent.toString();
+                                let txtDoctype = document.getElementById('sltDocType').textContent.toString();
+                                let txtMainSector = document.getElementById('sltMainSector').textContent.toString();
+                                let txtMainIndustry = document.getElementById('sltMainIndustry').textContent.toString();
+                                let txtAccountOfficer = document.getElementById('sltAccountOfficer').textContent.toString();
 
-                                let temp01 = document.getElementById('sltGBCountry').textContent.toString();
-                                temp01 = temp01[0] + temp01[1]
-
-                                console.log("check name")
-                                console.log(checkName(bioCity, temp))
-                                console.log(temp)
-                                console.log(bioCity)
+                                // console.log("check code")   
+                                // console.log(checkCode(bioCountry, txtCountry))
 
                                 axios.post('https://cb-be.azurewebsites.net/customer/create_individual_customer',{
                                     firstName: document.getElementById('txtFirstName').value,
                                     lastName: document.getElementById('txtLastName').value,
                                     middleName: document.getElementById('txtMiddleName').value,
-                                    GB_shortName: document.getElementById('txtGBShortName').value,
-                                    GB_fullName: document.getElementById('txtGBFullName').value,
-                                    GB_street: document.getElementById('txtGBStreet').value,
-                                    // cityProvince: temp,
-                                    // cityProvince: '4',
-                                    // GB_country: temp01,
+                                    GB_ShortName: document.getElementById('txtGBShortName').value,
+                                    GB_FullName: document.getElementById('txtGBFullName').value,
+                                    GB_Street: document.getElementById('txtGBStreet').value,
+                                    GB_Towndist: document.getElementById('txtGBTown/Dist').value,
+                                    mobilePhone: document.getElementById('txtMobilePhone').value,
+                                    docID: document.getElementById('txtDocID').value,
+                                    emailAddress: document.getElementById('txtEmailAddress').value,
 
+                                    cityProvince: checkName(bioCity, txtCity),
+                                    GB_Country: checkCode(bioCountry, txtCountry),
+                                    nationality: checkCode(bioCountry, txtNationality),
+                                    residence: checkCode(bioCountry, txtResidence),
+                                    doctype: checkName(bioDoctype, txtDoctype),
+                                    mainSector: checkName(bioMainSector, txtMainSector),
+                                    // mainIndustry: checkName(bioMainIndustry, txtMainIndustry),
+                                    accountOfficer: checkName(bioAccountOfficer, txtAccountOfficer),
                                 })
                                 .then(res => {
                                     console.log(res)
