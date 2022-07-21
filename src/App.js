@@ -3,10 +3,11 @@ import DefaultLayout from './layouts/DefaultLayout';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { privateRoutes } from "./routes";
 import LoginLayout from './layouts/LoginLayout';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const TITLE = 'Core Banking App'
+const TITLE = 'Core Banking App'  
 function App() {
+  
   return (
     <Router>
         <Routes>
