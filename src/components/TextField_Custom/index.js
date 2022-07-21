@@ -3,7 +3,8 @@ import { TextField} from "@mui/material"
 import { padding } from "@mui/system";
 
 function TextField_Custom({props1, props2, props3}) {
-    let idTemp = "txt" + props1.toString().replace(/\s/g, '');
+    let idTemp = "txt" + props1.toString().replace(/\s/g, '');  
+
     let widthTemp = props2.toString() + "ch"
 
     return (
