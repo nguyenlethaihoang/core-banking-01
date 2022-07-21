@@ -1,8 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import TextField_Custom from '../../../components/TextField_Custom'
 import Select_Custom from "../../../components/Select_Custom";
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,13 +12,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEffect, useState } from "react";
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(CustomerID, CustomerType, GBFullName, DocID, CellPhoneOfficeNum) {
+    return { CustomerID, CustomerType, GBFullName, DocID, CellPhoneOfficeNum };
   }
 
-const rows = [
+let rows = [
     // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
     // createData('Eclair', 262, 16.0, 24, 6.0),
@@ -25,6 +28,18 @@ const rows = [
   ];
 
 function EnquiryCustomer() {
+
+    const [bioGetAll, setBioGetAll] = useState([]);
+    useEffect(() => {
+        const fetchDataGetAll = async () => {
+            const response = await fetch(`https://cb-be.azurewebsites.net/customer/get_all_customer`);
+            const data = await response.json();
+            setBioGetAll(data.data.customer);  
+        };
+        console.log(bioGetAll)
+        fetchDataGetAll();
+    }, []);
+
     return(
         <div>
             <Accordion >
@@ -68,6 +83,33 @@ function EnquiryCustomer() {
                         style={{ 
                             // display: "flex", 
                             width: "100%", 
+                            paddingBottom: "20px",
+                            // backgroundColor: "#333", 
+                            // flexWrap: "wrap"
+                        }}
+                    >
+                        <Button 
+                            variant="outlined" 
+                            startIcon={<ManageSearchIcon />}
+                            onClick={() => {
+                                rows = []
+                                bioGetAll.map((data, index) => {
+                                    let temp = ""
+                                    if (data.CustomerType == "1")
+                                        temp = "Individial"
+                                    else temp = "Corporate"
+                                    rows.push(createData(data.id, temp, data.GB_FullName, data.DocID, data.PhoneNumber))
+                                })
+                                
+                              }}
+                        >
+                            Search
+                        </Button>
+                    </div>
+                    <div
+                        style={{ 
+                            // display: "flex", 
+                            width: "100%", 
                             // backgroundColor: "#333", 
                             // flexWrap: "wrap"
                         }}
@@ -86,20 +128,20 @@ function EnquiryCustomer() {
                                 <TableBody>
                                 {rows.map((row) => (
                                     <TableRow
-                                    key={row.name}
+                                    key={row.CustomerID}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="th" scope="row">
-                                            {row.name}
+                                            {row.CustomerID}
                                         </TableCell>
-                                        <TableCell align="right">{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
+                                        <TableCell align="right">{row.CustomerType}</TableCell>
+                                        <TableCell align="right">{row.GBFullName}</TableCell>
+                                        <TableCell align="right">{row.DocID}</TableCell>
+                                        <TableCell align="right">{row.CellPhoneOfficeNum}</TableCell>
                                     </TableRow>
           ))}
-        </TableBody>
-      </Table>
+                                </TableBody>
+                            </Table>
     </TableContainer>
 
                     </div>
