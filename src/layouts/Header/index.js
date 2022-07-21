@@ -26,7 +26,7 @@ function Header() {
             <div className='inner'>
                 <div className='logo'>
                     <img 
-                        src = "http://corebanking.vietvictory.vn/images/logo.png"
+                        src = {process.env.PUBLIC_URL + `/Imgs/logo.png`}
                         alt = "VietVictory"
                         width= "190"
                         height = "50"
