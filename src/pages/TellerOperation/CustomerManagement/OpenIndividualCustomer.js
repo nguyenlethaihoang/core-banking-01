@@ -175,7 +175,6 @@ function OpenIndividualCustomer() {
 
                                 // console.log("check code")   
                                 // console.log(checkCode(bioCountry, txtCountry))
-
                                 axios.post('https://cb-be.azurewebsites.net/customer/create_individual_customer',{
                                     firstName: document.getElementById('txtFirstName').value,
                                     lastName: document.getElementById('txtLastName').value,

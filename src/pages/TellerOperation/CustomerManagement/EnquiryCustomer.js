@@ -13,6 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 function createData(CustomerID, CustomerType, GBFullName, DocID, CellPhoneOfficeNum) {
@@ -27,14 +28,30 @@ let rows = [
     // createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
 
+const customerTypeData = [
+    {id: 1,
+    Name: 'P - Person' },
+    {
+    id: 2,
+    Name: 'C - Corporate'},
+]
+
 function EnquiryCustomer() {
 
     const [bioGetAll, setBioGetAll] = useState([]);
     useEffect(() => {
         const fetchDataGetAll = async () => {
-            const response = await fetch(`https://cb-be.azurewebsites.net/customer/get_all_customer`);
-            const data = await response.json();
-            setBioGetAll(data.data.customer);  
+            await axios.get('https://cb-be.azurewebsites.net/customer/get_all_customer', {
+                // https://cb-be.azurewebsites.net/customer/enquiry_customer
+            }).then(response => {
+                console.log("response")
+                console.log(response)
+                const dataRes = response.data.data.customer
+                setBioGetAll(dataRes); 
+                //return data.data.customer
+                 
+            })
+            
         };
         console.log(bioGetAll)
         fetchDataGetAll();
@@ -68,7 +85,9 @@ function EnquiryCustomer() {
                             flexWrap: "wrap"
                         }}
                     >
-                        <Select_Custom props1="Customer Type" props2="20" props3="NO"/>
+                        
+                        
+                        <Select_Custom props1="Customer Type" props2="20" props3="NO" props4={customerTypeData}/>
                         <TextField_Custom props1="Customer ID" props2="30" props3="NO"/>
                         <TextField_Custom props1="Cell Phone/Office Num" props2="20" props3="NO"/>
                         <TextField_Custom props1="GB Full Name" props2="30" props3="NO"/>
@@ -92,20 +111,15 @@ function EnquiryCustomer() {
                             variant="outlined" 
                             startIcon={<ManageSearchIcon />}
                             onClick={() => {
-                                rows = []
-                                bioGetAll.map((data, index) => {
-                                    let temp = ""
-                                    if (data.CustomerType == "1")
-                                        temp = "Individial"
-                                    else temp = "Corporate"
-                                    rows.push(createData(data.id, temp, data.GB_FullName, data.DocID, data.PhoneNumber))
+                                rows = [];
+                                console.log(bioGetAll)
+                                // setBioGetAll(rows)
+                                bioGetAll.map((value, index) => {
+                                    console.log(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber))
+                                    rows.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber))
                                 })
                                 console.log(rows)
-                                return (
-                                    <div>
-                                        123
-                                    </div>
-                                )
+                                
                               }}
                         >
                             Search
@@ -120,7 +134,11 @@ function EnquiryCustomer() {
                         }}
                     >
                         <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <Table 
+                                sx={{ minWidth: 650 }} 
+                                aria-label="simple table"
+                                id="sample-table"
+                            > 
                                 <TableHead>
                                 <TableRow>
                                     <TableCell>Customer ID</TableCell>
@@ -131,18 +149,18 @@ function EnquiryCustomer() {
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {rows.map((row) => (
+                                {bioGetAll.map((row,index) => (
                                     <TableRow
-                                    key={row.CustomerID}
+                                    key={index}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell component="th" scope="row">
-                                            {row.CustomerID}
+                                        <TableCell component="right" scope="row">
+                                            {row.id}
                                         </TableCell>
                                         <TableCell align="right">{row.CustomerType}</TableCell>
-                                        <TableCell align="right">{row.GBFullName}</TableCell>
+                                        <TableCell align="right">{row.GB_FullName}</TableCell>
                                         <TableCell align="right">{row.DocID}</TableCell>
-                                        <TableCell align="right">{row.CellPhoneOfficeNum}</TableCell>
+                                        <TableCell align="right">{row.PhoneNumber}</TableCell>
                                     </TableRow>
           ))}
                                 </TableBody>
