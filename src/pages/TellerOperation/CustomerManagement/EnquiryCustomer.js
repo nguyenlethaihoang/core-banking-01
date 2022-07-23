@@ -21,13 +21,7 @@ function createData(CustomerID, CustomerType, GBFullName, DocID, CellPhoneOffice
     return { CustomerID, CustomerType, GBFullName, DocID, CellPhoneOfficeNum };
   }
 
-let rows = [
-    // createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    // createData('Eclair', 262, 16.0, 24, 6.0),
-    // createData('Cupcake', 305, 3.7, 67, 4.3),
-    // createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+let rows = [];
 
 const customerTypeData = [
     {id: 1,
@@ -40,6 +34,9 @@ const customerTypeData = [
 function EnquiryCustomer() {
 
     const [bioRow, setBioRow] = useState([]);
+    useEffect(() => {
+        setBioRow(bioRow)
+    })
     const [bioGetAll, setBioGetAll] = useState([]);
     useEffect(() => {
         const fetchDataGetAll = async () => {
@@ -50,12 +47,10 @@ function EnquiryCustomer() {
                 console.log(response)
                 const dataRes = response.data.data.customer
                 setBioGetAll(dataRes); 
-                //return data.data.customer
                  
             })
             
         };
-        console.log(bioGetAll)
         fetchDataGetAll();
     }, []);
 
@@ -115,6 +110,19 @@ function EnquiryCustomer() {
                             onClick={() => {
                                 rows = [];
                                 // setBioGetAll(rows)
+                                const fetchDataGetAll = async () => {
+                                    await axios.get('https://cb-be.azurewebsites.net/customer/get_all_customer', {
+                                        // https://cb-be.azurewebsites.net/customer/enquiry_customer
+                                    }).then(response => {
+                                        console.log("response")
+                                        console.log(response)
+                                        const dataRes = response.data.data.customer
+                                        setBioGetAll(dataRes); 
+                                         
+                                    })
+                                    
+                                };
+                                fetchDataGetAll();
                                 bioGetAll.map((value, index) => {
                                     rows.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber))
                                 })
@@ -133,6 +141,7 @@ function EnquiryCustomer() {
                                 // flexWrap: "wrap"
                             }}
                             variant="outlined" 
+                            color="error"
                             startIcon={<DeleteSweepIcon />}
                             onClick={() => {
                                 rows = [];
@@ -160,11 +169,11 @@ function EnquiryCustomer() {
                             > 
                                 <TableHead>
                                 <TableRow>
-                                    <TableCell>Customer ID</TableCell>
-                                    <TableCell align="right">Customer Type</TableCell>
-                                    <TableCell align="right">GB Full Name</TableCell>
-                                    <TableCell align="right">Doc ID</TableCell>
-                                    <TableCell align="right">Cell Phone/Office Num</TableCell>
+                                    <TableCell align="center">Customer ID</TableCell>
+                                    <TableCell align="center">Customer Type</TableCell>
+                                    <TableCell align="center">GB Full Name</TableCell>
+                                    <TableCell align="center">Doc ID</TableCell>
+                                    <TableCell align="center">Cell Phone/Office Num</TableCell>
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -173,13 +182,13 @@ function EnquiryCustomer() {
                                     key={index}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell component="right" scope="row">
+                                        <TableCell align="center" component="right" scope="row">
                                             {row.CustomerID}
                                         </TableCell>
-                                        <TableCell align="right">{row.CustomerType}</TableCell>
-                                        <TableCell align="right">{row.GBFullName}</TableCell>
-                                        <TableCell align="right">{row.DocID}</TableCell>
-                                        <TableCell align="right">{row.CellPhoneOfficeNum}</TableCell>
+                                        <TableCell align="center">{row.CustomerType}</TableCell>
+                                        <TableCell align="center">{row.GBFullName}</TableCell>
+                                        <TableCell align="center">{row.DocID}</TableCell>
+                                        <TableCell align="center">{row.CellPhoneOfficeNum}</TableCell>
                                     </TableRow>
           ))}
                                 </TableBody>

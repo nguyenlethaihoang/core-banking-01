@@ -18,10 +18,13 @@ function Popup_Custom(props1) {
             </h3>
             <Button 
                 className="close-btn"
-                variant='outlined'
+                variant='contained'
+                color='success'
                 onClick={() => {props1.setTrigger(false)}
                 }
-            >Close</Button>
+            >
+                Go to dashboard
+            </Button>
         </div>
     </div>
   ) :  "";

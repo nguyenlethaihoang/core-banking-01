@@ -7,6 +7,7 @@ import DatePicker_Custom from "../../../components/DatePicker_Custom";
 import Button_Custom from "../../../components/Button_Custom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Popup_Custom from "../../../components/Popup_Custom";
 
 function checkName(a, b) {
     let temp = ""
@@ -33,6 +34,8 @@ function checkCode(a, b) {
 }
 
 function OpenCorporateCustomer() {
+    const [buttonPopup, setButtonPopup] = useState(false)
+
     const [bioCity, setBioCity] = useState([]);
     useEffect(() => {
         const fetchDataCity = async () => {
@@ -210,6 +213,8 @@ function OpenCorporateCustomer() {
                             })
                             .then(res => {
                                 console.log(res)
+                                setButtonPopup(true)
+
                             })
                             .catch(err=>{
                                 console.log(err)
@@ -218,7 +223,12 @@ function OpenCorporateCustomer() {
                     >
                         SAVE
                     </Button>
-                
+                    <Popup_Custom 
+                            trigger={buttonPopup}
+                            setTrigger={setButtonPopup}
+                        >
+                            
+                        </Popup_Custom>
 
 
                 </AccordionDetails>

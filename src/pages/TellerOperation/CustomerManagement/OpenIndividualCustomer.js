@@ -200,13 +200,13 @@ function OpenIndividualCustomer() {
                                     accountOfficer: checkName(bioAccountOfficer, txtAccountOfficer),
                                 })
                                 .then(res => {
-                                    console.log(res) 
+                                    console.log(res)
+                                    setButtonPopup(true)
+
                                 })
                                 .catch(err=>{
                                     console.log(err)
                                 })
-                                setButtonPopup(true)
-
                             }
                             
                         }
