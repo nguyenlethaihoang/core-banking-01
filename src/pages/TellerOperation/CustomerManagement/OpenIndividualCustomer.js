@@ -7,6 +7,7 @@ import DatePicker_Custom from "../../../components/DatePicker_Custom";
 import Button_Custom from "../../../components/Button_Custom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Popup_Custom from "../../../components/Popup_Custom";
 
 function checkName(a, b) {
     let temp = ""
@@ -33,6 +34,8 @@ function checkCode(a, b) {
 }
 
 function OpenIndividualCustomer() {
+
+    const [buttonPopup, setButtonPopup] = useState(false)
     
     const [bioCity, setBioCity] = useState([]);
     useEffect(() => {
@@ -197,18 +200,25 @@ function OpenIndividualCustomer() {
                                     accountOfficer: checkName(bioAccountOfficer, txtAccountOfficer),
                                 })
                                 .then(res => {
-                                    console.log(res)
-                                    // console.log(temp)
-                                    // console.log(temp01)
-                                    // console.log(document.getElementById('sltGBCountry').options[document.getElementById('sltGBCountry').selectedIndex].value);  
+                                    console.log(res) 
                                 })
                                 .catch(err=>{
                                     console.log(err)
                                 })
-                            }}
+                                setButtonPopup(true)
+
+                            }
+                            
+                        }
                         >
                             SAVE
                         </Button>
+                        <Popup_Custom 
+                            trigger={buttonPopup}
+                            setTrigger={setButtonPopup}
+                        >
+                            
+                        </Popup_Custom>
                     </div>
                         
 

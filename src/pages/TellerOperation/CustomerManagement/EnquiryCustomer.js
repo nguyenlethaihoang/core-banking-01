@@ -4,6 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField_Custom from '../../../components/TextField_Custom'
 import Select_Custom from "../../../components/Select_Custom";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -38,6 +39,7 @@ const customerTypeData = [
 
 function EnquiryCustomer() {
 
+    const [bioRow, setBioRow] = useState([]);
     const [bioGetAll, setBioGetAll] = useState([]);
     useEffect(() => {
         const fetchDataGetAll = async () => {
@@ -112,17 +114,34 @@ function EnquiryCustomer() {
                             startIcon={<ManageSearchIcon />}
                             onClick={() => {
                                 rows = [];
-                                console.log(bioGetAll)
                                 // setBioGetAll(rows)
                                 bioGetAll.map((value, index) => {
-                                    console.log(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber))
                                     rows.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber))
                                 })
-                                console.log(rows)
+                                setBioRow(rows)
                                 
                               }}
                         >
                             Search
+                        </Button>
+
+                        <Button 
+                            sx={{ 
+                                // display: "flex", 
+                                marginLeft: "20px",
+                                // backgroundColor: "#333", 
+                                // flexWrap: "wrap"
+                            }}
+                            variant="outlined" 
+                            startIcon={<DeleteSweepIcon />}
+                            onClick={() => {
+                                rows = [];
+                                // setBioGetAll(rows)
+                                setBioRow(rows)
+                                
+                              }}
+                        >
+                            Delete
                         </Button>
                     </div>
                     <div
@@ -149,18 +168,18 @@ function EnquiryCustomer() {
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {bioGetAll.map((row,index) => (
+                                {bioRow.map((row,index) => (
                                     <TableRow
                                     key={index}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="right" scope="row">
-                                            {row.id}
+                                            {row.CustomerID}
                                         </TableCell>
                                         <TableCell align="right">{row.CustomerType}</TableCell>
-                                        <TableCell align="right">{row.GB_FullName}</TableCell>
+                                        <TableCell align="right">{row.GBFullName}</TableCell>
                                         <TableCell align="right">{row.DocID}</TableCell>
-                                        <TableCell align="right">{row.PhoneNumber}</TableCell>
+                                        <TableCell align="right">{row.CellPhoneOfficeNum}</TableCell>
                                     </TableRow>
           ))}
                                 </TableBody>
