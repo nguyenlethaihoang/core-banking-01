@@ -8,6 +8,7 @@ import Button_Custom from "../../../components/Button_Custom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Popup_Custom from "../../../components/Popup_Custom";
+import Popup_Custom_Fail from "../../../components/Popup_Custom_Fail";
 
 function checkName(a, b) {
     let temp = ""
@@ -32,9 +33,11 @@ function checkCode(a, b) {
     })
     return temp
 }
-
+ 
 function OpenCorporateCustomer() {
     const [buttonPopup, setButtonPopup] = useState(false)
+    const [buttonPopupFail, setButtonPopupFail] = useState(false)
+
 
     const [bioCity, setBioCity] = useState([]);
     useEffect(() => {
@@ -142,6 +145,7 @@ function OpenCorporateCustomer() {
                         <DatePicker_Custom props1="Doc Expiry Date" props2="30" props3="NO" />
                         <TextField_Custom props1="Contact Person." props2="30" props3="NO" />
                         <TextField_Custom props1="Position." props2="20" props3="NO" />
+                        <TextField_Custom props1="Telephone." props2="20" props3="NO" />
                         <TextField_Custom props1="Email Address." props2="30" props3="NO" />
                         <TextField_Custom props1="Remarks." props2="30" props3="NO" />
 
@@ -178,6 +182,7 @@ function OpenCorporateCustomer() {
                             console.log(document.getElementById('txtDocIssuePlace.').value)
                             console.log(document.getElementById('txtContactPerson.').value)
                             console.log(document.getElementById('txtPosition.').value)
+                            console.log(document.getElementById('txtTelephone.').value)
                             console.log(checkName(bioCity, txtCity))
                             console.log(checkCode(bioCountry, txtCountry))
                             console.log(checkCode(bioCountry, txtNationality))
@@ -198,6 +203,7 @@ function OpenCorporateCustomer() {
                                 docIssuePlace: document.getElementById('txtDocIssuePlace.').value,
                                 contactPerson: document.getElementById('txtContactPerson.').value,
                                 position: document.getElementById('txtPosition.').value,
+                                officeNumber: document.getElementById('txtTelephone.').value,
                                 emailAddress: document.getElementById('txtEmailAddress.').value,
                                 remarks: document.getElementById('txtRemarks.').value,
                                 
@@ -218,6 +224,7 @@ function OpenCorporateCustomer() {
                             })
                             .catch(err=>{
                                 console.log(err)
+                                setButtonPopupFail(true)
                             })
                         }}
                     >
@@ -228,8 +235,13 @@ function OpenCorporateCustomer() {
                             setTrigger={setButtonPopup}
                         >
                             
-                        </Popup_Custom>
-
+                    </Popup_Custom>
+                    <Popup_Custom_Fail 
+                        trigger={buttonPopupFail}
+                        setTrigger={setButtonPopupFail}
+                    >
+                            
+                    </Popup_Custom_Fail>
 
                 </AccordionDetails>
             </Accordion>

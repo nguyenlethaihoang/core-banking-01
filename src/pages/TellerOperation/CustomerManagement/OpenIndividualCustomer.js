@@ -8,6 +8,7 @@ import Button_Custom from "../../../components/Button_Custom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Popup_Custom from "../../../components/Popup_Custom";
+import Popup_Custom_Fail from "../../../components/Popup_Custom_Fail";
 
 function checkName(a, b) {
     let temp = ""
@@ -36,6 +37,7 @@ function checkCode(a, b) {
 function OpenIndividualCustomer() {
 
     const [buttonPopup, setButtonPopup] = useState(false)
+    const [buttonPopupFail, setButtonPopupFail] = useState(false)
     
     const [bioCity, setBioCity] = useState([]);
     useEffect(() => {
@@ -206,6 +208,7 @@ function OpenIndividualCustomer() {
                                 })
                                 .catch(err=>{
                                     console.log(err)
+                                    setButtonPopupFail(true)
                                 })
                             }
                             
@@ -219,6 +222,12 @@ function OpenIndividualCustomer() {
                         >
                             
                         </Popup_Custom>
+                        <Popup_Custom_Fail 
+                            trigger={buttonPopupFail}
+                            setTrigger={setButtonPopupFail}
+                        >
+                            
+                        </Popup_Custom_Fail>
                     </div>
                         
 

@@ -40,8 +40,10 @@ function EnquiryCustomer() {
     const [bioGetAll, setBioGetAll] = useState([]);
     useEffect(() => {
         const fetchDataGetAll = async () => {
-            await axios.get('https://cb-be.azurewebsites.net/customer/get_all_customer', {
+            await axios.post('https://cb-be.azurewebsites.net/customer/enquiry_customer', {
                 // https://cb-be.azurewebsites.net/customer/enquiry_customer
+                // https://cb-be.azurewebsites.net/customer/get_all_customer
+                // "customerType": 1
             }).then(response => {
                 console.log("response")
                 console.log(response)
@@ -111,8 +113,9 @@ function EnquiryCustomer() {
                                 rows = [];
                                 // setBioGetAll(rows)
                                 const fetchDataGetAll = async () => {
-                                    await axios.get('https://cb-be.azurewebsites.net/customer/get_all_customer', {
-                                        // https://cb-be.azurewebsites.net/customer/enquiry_customer
+                                    await axios.post('https://cb-be.azurewebsites.net/customer/enquiry_customer', {
+                                        // https://cb-be.azurewebsites.net/customer/
+                                        // "customerType": 1
                                     }).then(response => {
                                         console.log("response")
                                         console.log(response)
@@ -150,7 +153,7 @@ function EnquiryCustomer() {
                                 
                               }}
                         >
-                            Delete
+                            Hide
                         </Button>
                     </div>
                     <div
