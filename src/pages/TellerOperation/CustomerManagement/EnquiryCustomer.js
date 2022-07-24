@@ -43,11 +43,11 @@ function EnquiryCustomer() {
             await axios.post('https://cb-be.azurewebsites.net/customer/enquiry_customer', {
                 // https://cb-be.azurewebsites.net/customer/enquiry_customer
                 // https://cb-be.azurewebsites.net/customer/get_all_customer
-                // "customerType": 1
+                // "customerType": 2
             }).then(response => {
                 console.log("response")
                 console.log(response)
-                const dataRes = response.data.data.customer
+                const dataRes = response.data.data
                 setBioGetAll(dataRes); 
                  
             })
@@ -115,11 +115,11 @@ function EnquiryCustomer() {
                                 const fetchDataGetAll = async () => {
                                     await axios.post('https://cb-be.azurewebsites.net/customer/enquiry_customer', {
                                         // https://cb-be.azurewebsites.net/customer/
-                                        // "customerType": 1
+                                        // "customerType": 2
                                     }).then(response => {
                                         console.log("response")
                                         console.log(response)
-                                        const dataRes = response.data.data.customer
+                                        const dataRes = response.data.data
                                         setBioGetAll(dataRes); 
                                          
                                     })

@@ -1,4 +1,5 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Button, Input, OutlinedInput, Typography } from "@mui/material"
+
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import TextField_Custom from '../../../components/TextField_Custom'             
@@ -24,11 +25,11 @@ function Amend() {
                             padding: "10px"
                         }}
                     >
-                        4. Amend
+                        3. Amend
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails style={{ paddingLeft: "30px"}}>
-                    <div
+                    {/* <div
                         style={{ 
                             display: "flex", 
                             width: "100%", 
@@ -90,9 +91,9 @@ function Amend() {
                             alt="The house from the offer."
                             src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
                         />
-                    </div>
+                    </div> */}
 
-                    <div
+                    {/* <div
                         style={{ 
                             // display: "flex", 
                             width: "100%", 
@@ -101,9 +102,80 @@ function Amend() {
                         }}
                     >
                         <Button_Custom props1="Search"/> 
-                    </div>
+                    </div> */}
                         
+                    <div
+                        style={{ 
+                            display: "flex", 
+                            width: "100%", 
+                            // backgroundColor: "#333", 
+                            flexWrap: "wrap"
+                        
+                        }}
+                    >
+                        <form method="post" action="https://cb-be.azurewebsites.net/signature/upload" enctype="multipart/form-data">
+                            <div class="form-group">
 
+                            <div
+                                style={{ 
+                                    display: "flex", 
+                                    width: "100%", 
+                                    // backgroundColor: "#333", 
+                                    flexWrap: "wrap",
+                                    paddingBottom: "20px"
+                                }}
+                            >
+                                <Input 
+                                
+                                    type="text" 
+                                    name="customerID"
+                                    placeholder="Customer ID"
+
+                                />
+                            </div>
+                            <div
+                                style={{ 
+                                    display: "flex", 
+                                    width: "100%", 
+                                    // backgroundColor: "#333", 
+                                    flexWrap: "wrap",
+                                    paddingBottom: "20px"
+
+                                }}
+                            >
+                                <OutlinedInput 
+                                
+                                     type="file" 
+                                     name="image" 
+                                    //  class="input-group input-file"
+                                /> 
+                            </div>
+
+                            <div
+                                style={{ 
+                                    display: "flex", 
+                                    width: "100%", 
+                                    // backgroundColor: "#333", 
+                                    flexWrap: "wrap",
+                                    paddingBottom: "20px"
+
+                                }}
+                            >
+                                <Button 
+                                    variant="contained"
+                                    type="submit" 
+                                    name="upload" 
+                                >
+                                    Change
+                                </Button>
+                            </div>
+                                
+                                
+                                
+                                
+                            </div>
+                        </form>
+                    </div>
 
                 </AccordionDetails>
             </Accordion>

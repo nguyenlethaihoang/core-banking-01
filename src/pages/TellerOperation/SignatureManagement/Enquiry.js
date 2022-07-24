@@ -1,10 +1,13 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import TextField_Custom from '../../../components/TextField_Custom'             
 import Button_Custom from "../../../components/Button_Custom";
+import { useState } from "react";
+import axios from "axios";
 
 function Enquiry() {
+    const [valueImage, setValueImage] = useState("")
     return(
         <div>
             <Accordion >
@@ -33,7 +36,7 @@ function Enquiry() {
                             flexWrap: "wrap"
                         }}
                     >
-                        <TextField_Custom props1="Customer ID" props2="30" props3="NO"/>
+                        <TextField_Custom props1="Customer ID.  " props2="30" props3="NO"/>
                         <TextField_Custom props1="Customer name" props2="30" props3="NO"/>
                     </div>
 
@@ -45,9 +48,38 @@ function Enquiry() {
                             // flexWrap: "wrap"
                         }}
                     >
-                        <Button_Custom props1="Search"/> 
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                                const fetchDataGetAll = async () => {
+                                    let valueId = document.getElementById('txtCustomerID.').value
+                                    await axios.get(`https://cb-be.azurewebsites.net/signature/get_by_customer/${valueId}`, {
+                                    }).then(response => {
+                                        console.log("response image id")
+                                        console.log(response)
+                                        setValueImage(response.data.data.signature[0].URL)
+                                         
+                                    })
+                                    
+                                };
+                                fetchDataGetAll();
+                            }}
+                        >
+                            Search
+                        </Button>
                     </div>
-                        
+                    <div
+                        style={{ 
+                            // display: "flex", 
+                            width: "100%", 
+                            // backgroundColor: "#333", 
+                            // flexWrap: "wrap"
+                        }}
+                    >
+                        <img 
+                            src={valueImage}
+                        />
+                    </div>
 
 
                 </AccordionDetails>

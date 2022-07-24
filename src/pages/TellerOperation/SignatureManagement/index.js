@@ -3,6 +3,7 @@ import Capture from "./Capture";
 import Enquiry from "./Enquiry";
 import See from "./See";
 import Status from "./Status";
+import Validate from "./Validate";
 
 function SignatureManagement() {
     return (
@@ -11,9 +12,9 @@ function SignatureManagement() {
 
             <Enquiry />
 
-            <See />
-
             <Amend />
+
+            <Validate />
 
             <Status />
         </div>
