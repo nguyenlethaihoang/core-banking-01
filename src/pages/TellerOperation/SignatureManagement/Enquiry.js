@@ -36,7 +36,7 @@ function Enquiry() {
                             flexWrap: "wrap"
                         }}
                     >
-                        <TextField_Custom props1="Customer ID.  " props2="30" props3="NO"/>
+                        <TextField_Custom props1="Customer ID." props2="30" props3="NO"/>
                         <TextField_Custom props1="Customer name" props2="30" props3="NO"/>
                     </div>
 

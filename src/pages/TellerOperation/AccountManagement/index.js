@@ -1,7 +1,13 @@
+import CurrentAndNonTermSavingAccount from "./CurrentAndNonTermSavingAccount";
+import SavingAccount from "./SavingAccount";
 
 function AccountManagement() {
     return (
-        <div></div>
+        <div>
+            <CurrentAndNonTermSavingAccount />
+
+            <SavingAccount />
+        </div>
     )
 }
 
