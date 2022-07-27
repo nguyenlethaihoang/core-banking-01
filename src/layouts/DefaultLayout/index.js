@@ -5,7 +5,12 @@ import './DefaultLayout.css'
 
 function DefaultLayout({ children }) {
     return (
-        <div className="wrapper">
+        <div 
+            className="wrapper"
+            style={{
+                // backgroundColor= "#f7f1e3"
+            }}      
+        >
 
             {/* header components */}
             <div className="header"><Header /></div>

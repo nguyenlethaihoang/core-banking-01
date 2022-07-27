@@ -37,7 +37,12 @@ function App() {
     )
   } else 
   return (
-    <Router>
+    <Router
+      className="router" 
+      style={{
+        // backgroundColor: "#f7f1e3"
+      }}
+    >
         <Routes>
         {
           privateRoutes.map((route, index)=> {

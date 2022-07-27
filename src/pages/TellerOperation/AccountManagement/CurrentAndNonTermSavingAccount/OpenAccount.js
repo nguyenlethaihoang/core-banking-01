@@ -108,7 +108,7 @@ function OpenAccount() {
                         <Select_Custom props1="Account Officer" props2="25" props3="account_officer" props4={bioAccountOfficer}/>
                         {/* <Select_Custom props1="Charge Code" props2="25" props3="account_officer" props4={bioAccountOfficer}/> */}
                     </div>
-
+ 
                     <hr/>
                     <p><b>JOIN HOLDER</b></p>
                     <div
