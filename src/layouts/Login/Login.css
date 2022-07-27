@@ -34,14 +34,18 @@
   .column {
     float: left;
     padding: 10px;
-    height: 777px;
-    background-color: #ea8685;
+    height: 725px;
+    /* background-color: #ea8685; */
+    background-color: #f7f1e3;
+
   }
   
   /* Cột bên trái và phải */
   .column.side {
     width: 70%;
-    background-color: #ea8685;
+    /* background-color: #ea8685; */
+    background-color: #f7f1e3;
+
   }
   
   /* Cột chính giữa */
@@ -49,7 +53,8 @@
     width: 25%;
     /* width: 500px; */
 
-    background-color: #b33939;
+    /* background-color: #b33939; */
+    background-color: #f7f1e3;
     display: flex;
     flex-direction: column;
     align-items: center;

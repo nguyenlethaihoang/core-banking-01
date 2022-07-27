@@ -13,7 +13,7 @@ function Login({handleSetIsLogin}) {
             </div>
 
             <div class="column middle">
-                <LoginForm handleSetIsLogin={handleSetIsLogin}/>
+                <LoginForm />
             </div>
 
             <div class="column final">

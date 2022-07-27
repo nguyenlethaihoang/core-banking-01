@@ -1,5 +1,6 @@
 import { AccountCircle } from "@mui/icons-material";
 import { Button, Checkbox, TextField, Typography } from "@mui/material"
+import KeyIcon from '@mui/icons-material/Key';
 import { Box } from "@mui/system";
 import './LoginForm.css'
 
@@ -11,7 +12,20 @@ function LoginForm() {
         <div className="main" 
             // action="/"
          >
-            <Typography
+             <div className='logo'
+                    style={{
+                        paddingBottom : "100px",
+                        paddingTop : "30px"
+                    }}
+             >
+                    <img 
+                        src = {process.env.PUBLIC_URL + `/Imgs/logo.png`}
+                        alt = "VietVictory"
+                        width= "359"
+                        height = "133"
+                    />
+                </div>
+            {/* <Typography
                 fontWeight= "700" 
                 variant="h4"
                 color="#ea8685"
@@ -31,24 +45,31 @@ function LoginForm() {
                   }}
             >
                 Trao nghề nghiệp - Trao tương lai
-            </Typography>
+            </Typography> */}
             <Typography
                 fontWeight= "600" 
-                color="white"
+                color="#d71921"
                 sx={{
-                    paddingLeft: "70px",
+                    paddingLeft: "120px",
                     paddingBottom: "30px"
                 }}
             >Please login to continue</Typography>
 
-            <Box sx={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '20px' }}>
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    alignItems: 'flex-end', 
+                    paddingBottom: '20px', 
+                    paddingLeft: "30px",
+
+                }}>
                 <AccountCircle 
-                    sx={{ color: 'white', mr: 1, my: 0.5 }} 
+                    sx={{ color: '#d71921', mr: 1, my: 0.5, marginBottom: 2 }} 
                 />
                 <TextField 
                     id="txtUsername" 
                     label="Username" 
-                    variant="filled"
+                    variant="outlined"
                     sx={{ 
                         input: { color: 'black' }, 
                         bgcolor: 'white',
@@ -60,14 +81,13 @@ function LoginForm() {
                     
                 />
             </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '20px'}}>
-                <AccountCircle sx={{ color: 'white', mr: 1, my: 0.5 }} />
+            <Box sx={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '20px', paddingLeft: "30px",}}>
+                <KeyIcon sx={{ color: '#d71921', mr: 1, my: 0.5, marginBottom: 2 }} />
                 <TextField 
                     id="txtPassword" 
                     label="Password"
                     type="password" 
-                    variant="filled"
+                    variant="outlined"
                     sx={{ 
                         input: { color: 'black' }, 
                         bgcolor: 'white',
@@ -80,19 +100,19 @@ function LoginForm() {
                 />
             </Box>
             
-            <Box sx={{ color: 'text.secondary', display: 'inline', fontSize: 14 }}>
+            <Box sx={{ color: 'text.secondary', display: 'inline', fontSize: 14, paddingLeft: "30px", }}>
                 <Checkbox 
                     {...label} 
                     defaultChecked 
                     sx={{
-                        color: "white",
+                        color: "#d71921",
                         '&.Mui-checked': {
-                        color: "white",
+                        color: "#d71921",
                         },
                     }}
                 /> 
                 <Typography
-                    color="white"
+                    color="#d71921"
                     sx={{ display: 'inline'}}
                 >Remember me</Typography>
             </Box>
@@ -102,9 +122,11 @@ function LoginForm() {
                 sx={{ 
                     padding: '10px 50px', 
                     marginTop: '45px', 
-                    marginLeft: '100px', 
-                    backgroundColor: '#f8c291',
-                    color: '#0a3d62',
+                    marginLeft: '150px', 
+                    // backgroundColor: '#f8c291',
+                    backgroundColor: '#d71921',
+                    // color: '#0a3d62',
+                    color: '#fff',
                     fontStyle: 'bold',
                     '&:hover': {
                         backgroundColor: '#f8c291',
@@ -114,7 +136,6 @@ function LoginForm() {
                 }}
                 type={"submit"}
                 onClick= {
-                    // canClick() && 
                     () => {
                         console.log('txtUsername')
                         console.log(document.getElementById('txtUsername').value)
