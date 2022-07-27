@@ -14,7 +14,7 @@ const publicRoutes = [
 // Private Routes
 const privateRoutes = [
     { path: '/', component: Home},
-    { path: '/login', component: LoginPage},
+    // { path: '/login', component: LoginPage},
 
     { path: '/customer_management', component: CustomerManagement},
     { path: '/signature_management', component: SignatureManagement},

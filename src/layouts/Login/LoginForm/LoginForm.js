@@ -3,10 +3,14 @@ import { Button, Checkbox, TextField, Typography } from "@mui/material"
 import { Box } from "@mui/system";
 import './LoginForm.css'
 
+
+
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 function LoginForm() {
     return (
-        <form className="main" action="/" >
+        <div className="main" 
+            // action="/"
+         >
             <Typography
                 fontWeight= "700" 
                 variant="h4"
@@ -92,7 +96,6 @@ function LoginForm() {
                     sx={{ display: 'inline'}}
                 >Remember me</Typography>
             </Box>
-
             <br />
             <Button 
                 variant="contained"
@@ -110,12 +113,32 @@ function LoginForm() {
                       },
                 }}
                 type={"submit"}
+                onClick= {
+                    // canClick() && 
+                    () => {
+                        console.log('txtUsername')
+                        console.log(document.getElementById('txtUsername').value)
+                        console.log('txtPassword')
+                        console.log(document.getElementById('txtPassword').value) 
+                        if (localStorage) {
+                            console.log("Save thanh cong")
+                            var name = document.getElementById('txtUsername').value;
+                            localStorage.setItem('name', name);
+                            var pass = document.getElementById('txtPassword').value;
+                            localStorage.setItem('pass', pass);
+                            // localStorage.clear()
+                        }
+                        window.location.reload(false)
+                        // window.history.pushState('Home', 'Title Home', '/')
+
+                    }
+                }
             >
                 Log in
             </Button>
 
 
-        </form>
+        </div>
     )
 }
 
