@@ -40,8 +40,14 @@ function Select_Custom({props1, props2, props3, props4}) {
 
                     {
                         props4.map((data, index) => {
+                            if (data.Name != undefined) {
+                                return (
+                                    <MenuItem key={index} value={data.id}>{data.Name}</MenuItem>
+                                )
+                            }
+                            else 
                             return (
-                                <MenuItem key={index} value={data.id}>{data.Name}</MenuItem>
+                                <MenuItem key={index} value={data.id}>{data.id} - {data.GB_FullName}</MenuItem>
                             )
                         })
                     }
