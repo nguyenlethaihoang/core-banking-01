@@ -102,8 +102,8 @@ function Header() {
                     <img 
                         src = {process.env.PUBLIC_URL + `/Imgs/logo.png`}
                         alt = "VietVictory"
-                        width= "170"
-                        height = "50"
+                        width= "96"
+                        height = "60"
                     />
                 </div>
                 <div className='university_logo'>

@@ -11,18 +11,19 @@ function LoginForm() {
     return (
         <div className="main" 
             // action="/"
-         >
+         > 
              <div className='logo'
                     style={{
-                        paddingBottom : "100px",
-                        paddingTop : "30px"
+                        paddingBottom : "40px",
+                        paddingTop : "70px",
+                        marginLeft: "15px"
                     }}
-             >
+             > 
                     <img 
                         src = {process.env.PUBLIC_URL + `/Imgs/logo.png`}
                         alt = "VietVictory"
-                        width= "359"
-                        height = "133"
+                        width= "216"
+                        height = "135"
                     />
                 </div>
             {/* <Typography
