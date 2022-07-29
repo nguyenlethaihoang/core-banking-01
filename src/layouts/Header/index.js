@@ -3,11 +3,12 @@ import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import { useEffect, useState } from 'react';
+import * as React from 'react';
 // import Search_Custom from '../../components/Search_Custom';
 import EmailIcon from "@mui/icons-material/Email";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Box from "@mui/material/Box";
-import { Avatar, IconButton, Menu, Tooltip, Typography} from '@mui/material';
+import { Avatar, IconButton, Menu, MenuItem, Tooltip, Typography} from '@mui/material';
 
 function checkDay() {
     let tmp = ""
@@ -77,9 +78,18 @@ function checkAPM() {
 }
 
 function Header() {    
-    const [searchResult, setSearchResult] = useState([])
-    
 
+    // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const [searchResult, setSearchResult] = useState([])
     useEffect(() => {
         setTimeout(() => {
             setSearchResult([1, ,2, 3]);
@@ -143,24 +153,66 @@ function Header() {
                 <div className='avt_logo'>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <IconButton sx={{ p: 0 }}>
+                            <IconButton 
+                                onClick={handleClick}
+                                size="small"
+                                sx={{ ml: 2, p:0 }}
+                                aria-controls={open ? 'account-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                            >
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            //   anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right"
+                            anchorEl={anchorEl}
+                            id="account-menu"
+                            open={open}
+                            onClose={handleClose}
+                            onClick={handleClose}
+                            PaperProps={{
+                              elevation: 0,
+                              sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                  width: 32,
+                                  height: 32,
+                                  ml: -0.5,
+                                  mr: 1,
+                                },
+                                '&:before': {
+                                  content: '""',
+                                  display: 'block',
+                                  position: 'absolute',
+                                  top: 0,
+                                  right: 14,
+                                  width: 10,
+                                  height: 10,
+                                  bgcolor: 'background.paper',
+                                  transform: 'translateY(-50%) rotate(45deg)',
+                                  zIndex: 0,
+                                },
+                              },
                             }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right"
-                            }}
+                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
+                            {/* <MenuItem >Profile</MenuItem>
+                            <MenuItem >My account</MenuItem> */}
+                            <MenuItem 
+                                onClick={
+                                    () => {
+                                        window.localStorage.removeItem('name')
+                                        window.localStorage.removeItem('pass')
+                                        window.location.reload()
+
+                                        // window.history.pushState('Login', 'Title Login', '/login')
+                                        // window.history.pushState('Login', 'Title Login', '/login')
+                                    }
+                                }
+                            >Logout</MenuItem>
                         </Menu>
                     </Box>
                 </div>
