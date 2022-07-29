@@ -1,7 +1,11 @@
+import SubForeignExchange from "./SubForeignExchange";
+
 
 function ForeignExchange() {
     return(
-        <div></div>
+        <div>
+            <SubForeignExchange />            
+        </div>
     )
 }
 
