@@ -11,7 +11,7 @@
 }
 .logo {
     margin-right: 170px;
-    padding-left: 10px;
+    padding-left: 40px;
     padding-top: 5px;
 }
 .university_logo{
@@ -45,5 +45,11 @@
 .time {
     padding-left: 110px;
     padding-top: 6px;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 
 }
