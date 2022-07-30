@@ -131,8 +131,10 @@ function Header() {
 
                 <div className='time'>
                     <Typography variant="h7" component="h4">{hourOnHeader}</Typography>
-                    <Typography variant="h7" component="h4">{dateOnHeader}</Typography>
                     
+                </div>
+                <div className='timeDate'>
+                    <Typography variant="h7" component="h4">{dateOnHeader}</Typography>
                 </div>
                 <div className='email_logo'>
                         <EmailIcon 
