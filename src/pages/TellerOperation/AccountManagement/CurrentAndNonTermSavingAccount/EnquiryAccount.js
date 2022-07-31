@@ -5,13 +5,15 @@ import Select_Custom from "../../../../components/Select_Custom";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 import { useEffect, useState } from "react";
+import axios from "axios";
+import Actions from "./Actions";
 
 const customerTypeData = [{id: 1,Name: 'P - Person' },{id: 2,Name: 'C - Corporate'},]
 
 const currencyData = [{id: 1,Name: 'USD' },{id: 2,Name: 'EUR'},{id: 3,Name: 'GBP'},{id: 4,Name: 'JPY'},{id: 5,Name: 'VND'},]
 
-function createData(CustomerID, CustomerType, GBFullName, DocID, CellPhoneOfficeNum) {
-    return { CustomerID, CustomerType, GBFullName, DocID, CellPhoneOfficeNum };
+function createData(AccountCode, CustomerID, CustomerName, DocID, Category, ProductLine, Currency, ActualBallance, WorkingAmount, LockedAmount) {
+    return { AccountCode, CustomerID, CustomerName, DocID, Category, ProductLine, Currency , ActualBallance, WorkingAmount, LockedAmount};
   }
 
 let rows = [];
@@ -20,7 +22,48 @@ function EnquiryAccount() {
     const [bioRow, setBioRow] = useState([]);
     useEffect(() => {
         setBioRow(bioRow)
-    })
+    }) 
+
+    const [bioGetAll, setBioGetAll] = useState([]);
+    useEffect(() => {
+        const fetchDataGetAll = async () => {
+            await axios.post(' https://cb-be.azurewebsites.net/account/debit_account/enquiry', {
+
+            }).then(response => {
+                console.log("response")
+                console.log(response.data.data)
+                const dataRes = response.data.data
+                setBioGetAll(dataRes); 
+                 
+            })
+            
+        };
+        fetchDataGetAll();
+    }, []);
+
+    const [bioCategory, setBioCategory] = useState([]);
+    useEffect(() => {
+        const fetchDataCustomer = async () => {
+            const response = await fetch(`https://cb-be.azurewebsites.net/storage/get_category`);
+            const data = await response.json();
+            // console.log("dataProductLine")
+            // console.log(data)
+            setBioCategory(data.rows);  
+        };
+        fetchDataCustomer();
+    }, []);
+
+    const [bioProductLine, setBioProductLine] = useState([]);
+    useEffect(() => {
+        const fetchDataCustomer = async () => {
+            const response = await fetch(`https://cb-be.azurewebsites.net/storage/get_product_line`);
+            const data = await response.json();
+            // console.log("dataProductLine")
+            // console.log(data)
+            setBioProductLine(data.rows);  
+        };
+        fetchDataCustomer();
+    }, []);
     return (
         <div>
             <Accordion >
@@ -55,8 +98,8 @@ function EnquiryAccount() {
                         <TextField_Custom props1="Customer ID" props2="35" props3="NO"/>
                         <TextField_Custom props1="GB Full Name" props2="35" props3="NO"/>
                         <TextField_Custom props1="Doc ID" props2="35" props3="NO"/>
-                        {/* <Select_Custom props1="Category" props2="20" props3="NO" props4={customerTypeData}/> */}
-                        {/* <Select_Custom props1="Product Line" props2="35" props3="city" props4={productLineData}/> */}
+                        <Select_Custom props1="Category" props2="20" props3="NO" props4={bioCategory}/>
+                        <Select_Custom props1="Product Line" props2="35" props3="city" props4={bioProductLine}/>
 
 
                     </div>
@@ -75,9 +118,38 @@ function EnquiryAccount() {
                             startIcon={<ManageSearchIcon />}
                             onClick={() => {
                                 rows = [];
-                                
+                                const fetchDataGetAll = async () => {
+                                    await axios.post(' https://cb-be.azurewebsites.net/account/debit_account/enquiry', {
+                        
+                                    }).then(response => {
+                                        console.log("response")
+                                        console.log(response.data)
+                                        const dataRes = response.data
+                                        setBioGetAll(dataRes); 
+                                         
+                                    })
+                                    
+                                };
+
+                                fetchDataGetAll();
+                                bioGetAll.map((value, index) => {
+                                    rows.push(createData(value.id ,
+                                                        value.id, 
+                                                        value.GB_FullName, 
+                                                        value.DocID, 
+                                                        value.Category, 
+                                                        value.ProductLine, 
+                                                        value.Currency, 
+                                                        value.ActualBalance,
+                                                        value.WorkingAmount, 
+                                                        <Actions />, 
+                                                        ))
+                                })
+                                console.log("rows")
+                                console.log(rows)
+                                setBioRow(rows)
                               }}
-                        >
+                        >   
                             Search
                         </Button>
                     </div>
@@ -116,12 +188,17 @@ function EnquiryAccount() {
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell align="center" component="right" scope="row">
-                                                {row.CustomerID}
+                                                {row.AccountCode}
                                             </TableCell>
-                                            <TableCell align="center">{row.CustomerType}</TableCell>
-                                            <TableCell align="center">{row.GBFullName}</TableCell>
+                                            <TableCell align="center">{row.CustomerID}</TableCell>
+                                            <TableCell align="center">{row.CustomerName}</TableCell>
                                             <TableCell align="center">{row.DocID}</TableCell>
-                                            <TableCell align="center">{row.CellPhoneOfficeNum}</TableCell>
+                                            <TableCell align="center">{row.Category}</TableCell>
+                                            <TableCell align="center">{row.ProductLine}</TableCell>
+                                            <TableCell align="center">{row.Currency}</TableCell>
+                                            <TableCell align="center">{row.ActualBallance}</TableCell>
+                                            <TableCell align="center">{row.WorkingAmount}</TableCell>
+                                            <TableCell align="center">{row.LockedAmount}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
