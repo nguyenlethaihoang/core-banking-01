@@ -30,7 +30,7 @@ function EnquiryAccount() {
             await axios.post(' https://cb-be.azurewebsites.net/account/debit_account/enquiry', {
 
             }).then(response => {
-                console.log("response")
+                console.log("response Get all")
                 console.log(response.data.data)
                 const dataRes = response.data.data
                 setBioGetAll(dataRes); 
@@ -122,7 +122,7 @@ function EnquiryAccount() {
                                     await axios.post(' https://cb-be.azurewebsites.net/account/debit_account/enquiry', {
                         
                                     }).then(response => {
-                                        console.log("response")
+                                        console.log("enquiry account")
                                         console.log(response.data)
                                         const dataRes = response.data
                                         setBioGetAll(dataRes); 
@@ -134,19 +134,19 @@ function EnquiryAccount() {
                                 fetchDataGetAll();
                                 bioGetAll.map((value, index) => {
                                     rows.push(createData(value.id ,
-                                                        value.id, 
-                                                        value.GB_FullName, 
-                                                        value.DocID, 
-                                                        value.Category, 
-                                                        value.ProductLine, 
-                                                        value.Currency, 
+                                                        value.CustomerID, 
+                                                        value.Customer.GB_FullName, 
+                                                        value.Customer.DocID, 
+                                                        value.CATEGORY.Name, 
+                                                        value.PRODUCTLINE.Name, 
+                                                        value.CURRENCY.Name, 
                                                         value.ActualBalance,
                                                         value.WorkingAmount, 
-                                                        <Actions />, 
+                                                        <Actions AccountCode={value.id}/>, 
                                                         ))
                                 })
-                                console.log("rows")
-                                console.log(rows)
+                                // console.log("rows")
+                                // console.log(rows)
                                 setBioRow(rows)
                               }}
                         >   

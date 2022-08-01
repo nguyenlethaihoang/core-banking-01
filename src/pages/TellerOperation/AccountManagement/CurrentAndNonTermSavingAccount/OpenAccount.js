@@ -169,7 +169,7 @@ function OpenAccount() {
                         <Select_Custom props1="ID Join Holder" props2="35" props3="account_officer" props4={bioCustomer}/>
                         <Select_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioAccountOfficer}/>
                         <TextField_Custom props1="Join Notes" props2="35" props3="NO"/>
- 
+  
                     </div>
                     <div
                         style={{ 
@@ -252,6 +252,7 @@ function OpenAccount() {
                         <Popup_Custom_Fail 
                             trigger={buttonPopupFail}
                             setTrigger={setButtonPopupFail}
+                            
                         >
                             
                         </Popup_Custom_Fail>

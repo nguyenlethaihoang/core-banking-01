@@ -5,6 +5,7 @@ import TextField_Custom from '../../../../../components/TextField_Custom';
 import './Check_Custom.css'
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
+import Select_Value_Custom from '../../../../../components/Select_Value_Custom';
 
 
 const categoryData = [
@@ -15,30 +16,20 @@ const categoryData = [
     Name: '2000 - Tiết kiệm không kỳ hạn'},
 ]
 
-const currencyData = [
-    {
-        id: 1,
-        Name: 'USD' 
-    },
-    {
-        id: 2,
-        Name: 'EUR'
-    },
-    {
-        id: 3,
-        Name: 'GBP'
-    },
-    {
-        id: 4,
-        Name: 'JPY'
-    },
-    {
-        id: 5,
-        Name: 'VND'
-    },
-]
+const currencyData = [{id: 1, Name: 'USD' },{id: 2,Name: 'EUR'},{id: 3,Name: 'GBP'},{id: 4,Name: 'JPY'},{id: 5,Name: 'VND'},]
 
 function Check_Custom(props1) {
+    let tmpURL = `https://cb-be.azurewebsites.net/account/debit_account/get/${props1.AccountCode}`
+    const [bioFilled, setBioFilled] = useState([]);
+    useEffect(() => {
+        const fetchDataFilled = async () => {
+            const response = await fetch(`${tmpURL}`);
+            const data = await response.json();
+            setBioFilled(data.data);  
+        };  
+        fetchDataFilled();
+    }, []);
+
     const [bioCustomer, setBioCustomer] = useState([]);
     useEffect(() => {
         const fetchDataCustomer = async () => {
@@ -50,6 +41,7 @@ function Check_Custom(props1) {
         };
         fetchDataCustomer();
     }, []);
+
 
     const [bioProductLine, setBioProductLine] = useState([]);
     useEffect(() => {
@@ -100,7 +92,18 @@ function Check_Custom(props1) {
                 }}
             >
                 <IconButton>
-                    <EditIcon />
+                    <EditIcon 
+                        onClick={()=> {
+                            // const element = document.getElementById('foo');
+                            // element.css({
+                            //     'backgroundColor':'red',
+                            // })
+                            document.getElementById("foo").style['pointer-events'] = 'auto';
+                            document.getElementById("foo").style['opacity'] = '1';
+                            document.getElementById("bar").style['pointer-events'] = 'auto';
+                            document.getElementById("bar").style['opacity'] = '1';
+                        }}
+                    />
                 </IconButton>
                 <IconButton>
                     <PrintIcon />
@@ -108,72 +111,75 @@ function Check_Custom(props1) {
                 <IconButton></IconButton>
             </div>
             <div
-                        style={{ 
-                            display: "flex", 
-                            width: "100%", 
-                            flexWrap: "wrap"
-                        }}
-                    >
-                        <Select_Custom props1="Customer ID" props2="35" props3="city" props4={bioCustomer}/>
-                        <Select_Custom props1="Category" props2="35" props3="city" props4={categoryData}/>
-                        <Select_Custom props1="Product Line" props2="35" props3="city" props4={bioProductLine}/>
-                        <Select_Custom props1="Currency" props2="35" props3="city" props4={currencyData}/>
-                        <TextField_Custom props1="Account Title" props2="35" props3="YES"/>
-                        <TextField_Custom props1="Short Title" props2="35" props3="YES"/>
-                        <Select_Custom props1="Account Officer" props2="25" props3="account_officer" props4={bioAccountOfficer}/>
-                        <Select_Custom props1="Charge Code" props2="25" props3="account_officer" props4={bioChargeCode}/>
-                    </div>
+                id='foo'
+                style={{ 
+                    display: "flex", 
+                    width: "100%", 
+                    flexWrap: "wrap"
+                }}
+            >
+                
+                <Select_Value_Custom props1="Customer ID" props2="35" props3="city" props4={bioCustomer} props5={bioFilled} props6="CustomerID"/>
+                <Select_Value_Custom props1="Category" props2="35" props3="city" props4={categoryData} props5={bioFilled} props6="Category"/>
+                <Select_Value_Custom  props1="Product Line" props2="35" props3="city" props4={bioProductLine} props5={bioFilled} props6="ProductLine"/>
+                <Select_Value_Custom props1="Currency" props2="15" props3="city" props4={currencyData} props5={bioFilled} props6="Currency"/>
+                <TextField_Custom props1="Account Title" props2="35" props3="YES"/>
+                <TextField_Custom props1="Short Title" props2="35" props3="YES"/>
+                <Select_Value_Custom props1="Account Officer" props2="25" props3="account_officer" props4={bioAccountOfficer} props5={bioFilled} props6="AccountOfficer"/>
+                <Select_Value_Custom props1="Charge Code" props2="25" props3="account_officer" props4={bioChargeCode} props5={bioFilled} props6="ChargeCode"/>
+            </div>
  
-                    <hr/>
-                    <p><b>JOIN HOLDER</b></p>
-                    <div
-                        style={{ 
-                            display: "flex", 
-                            width: "100%", 
-                            flexWrap: "wrap",
-                            paddingTop: "10px"
-                        }}
-                    >
-                        
-                        <br/>
-                        <Select_Custom props1="ID Join Holder" props2="35" props3="account_officer" props4={bioCustomer}/>
-                        <Select_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioAccountOfficer}/>
-                        <TextField_Custom props1="Join Notes" props2="35" props3="NO"/>
- 
-                    </div>
+            <hr/>
+            <p><b>JOIN HOLDER</b></p>
+            <div
+                id='bar'
+                style={{ 
+                    display: "flex", 
+                    width: "100%", 
+                    flexWrap: "wrap",
+                    paddingTop: "10px"
+                }}
+            >
+                
+                <br/>
+                <Select_Value_Custom props1="ID Join Holder" props2="35" props3="account_officer" props4={bioCustomer} props5={bioFilled} props6="JoinHolderID"/>
+                <Select_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioAccountOfficer}/>
+                <TextField_Custom props1="Join Notes" props2="35" props3="NO"/>
 
-                    <div
-                        style={{ 
-                            // display: "flex", 
-                            alignItems: "center",
-                            width: "100%", 
-                            // flexWrap: "wrap",
-                            paddingTop: "10px"
-                        }}
-                    >
-                        <Button 
-                            className="close-btn"
-                            variant='contained'
-                            color='success'
-                            sx={{
-                                marginRight: "30px"
-                            }}
-                            onClick={() => {props1.setTrigger(false)}
-                            }
-                        >
-                            Save
-                        </Button>
+            </div>
 
-                        <Button 
-                            className="close-btn"
-                            variant='contained'
-                            color='error'
-                            onClick={() => {props1.setTrigger(false)}
-                            }
-                        >
-                            Cancel
-                        </Button>
-                    </div>
+            <div
+                style={{ 
+                    // display: "flex", 
+                    alignItems: "center",
+                    width: "100%", 
+                    // flexWrap: "wrap",
+                    paddingTop: "10px"
+                }}
+            >
+                <Button 
+                    className="close-btn"
+                    variant='contained'
+                    color='success'
+                    sx={{
+                        marginRight: "30px"
+                    }}
+                    onClick={() => {props1.setTrigger(false)}
+                    }
+                >
+                    Save
+                </Button>
+
+                <Button 
+                    className="close-btn"
+                    variant='contained'
+                    color='error'
+                    onClick={() => {props1.setTrigger(false)}
+                    }
+                >
+                    Cancel
+                </Button>
+            </div>
             
         </div>
     </div>

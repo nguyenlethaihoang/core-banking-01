@@ -6,7 +6,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import Check_Custom from "./Check_Custom";
 
 
-function Actions() {
+function Actions({AccountCode}) {
     const [buttonPopup, setButtonPopup] = useState(false)
 
 
@@ -18,6 +18,8 @@ function Actions() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    // console.log("Actions: Account Code")
+    // console.log(AccountCode)
     return(
         <div>
             <Box sx={{ flexGrow: 0 }}>
@@ -73,14 +75,7 @@ function Actions() {
                             <MenuItem 
                                 onClick={
                                     () => {
-                                        // window.localStorage.removeItem('name')
-                                        // window.localStorage.removeItem('pass')
-                                        // window.location.reload()
-
-                                        // window.history.pushState('Login', 'Title Login', '/login')
-                                        // window.history.pushState('Login', 'Title Login', '/login')
                                         setButtonPopup(true)
-
                                     }
                                 }
                             >Check</MenuItem>
@@ -91,6 +86,7 @@ function Actions() {
                         <Check_Custom 
                             trigger={buttonPopup}
                             setTrigger={setButtonPopup}
+                            AccountCode={AccountCode}
                         ></Check_Custom>
                     </Box>
         </div>
