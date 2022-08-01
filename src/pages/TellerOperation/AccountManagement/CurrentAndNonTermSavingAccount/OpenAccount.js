@@ -84,6 +84,18 @@ function OpenAccount() {
         fetchDataCustomer();
     }, []);
 
+    const [bioRelationCode, setBioRelationCode] = useState([]);
+    useEffect(() => {
+        const fetchDataRelationCode = async () => {
+            const response = await fetch(`https://cb-be.azurewebsites.net/storage/get_relation`);
+            const data = await response.json();
+            console.log("relation")
+            console.log(data.rows)
+            setBioRelationCode(data.rows);  
+        };
+        fetchDataRelationCode();
+    }, []);
+
     const [bioProductLine, setBioProductLine] = useState([]);
     useEffect(() => {
         const fetchDataCustomer = async () => {
@@ -167,7 +179,7 @@ function OpenAccount() {
                         
                         <br/>
                         <Select_Custom props1="ID Join Holder" props2="35" props3="account_officer" props4={bioCustomer}/>
-                        <Select_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioAccountOfficer}/>
+                        <Select_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioRelationCode}/>
                         <TextField_Custom props1="Join Notes" props2="35" props3="NO"/>
   
                     </div>
@@ -190,31 +202,12 @@ function OpenAccount() {
                                 let txtCustomerID = document.getElementById('sltCustomerID').textContent.toString();
                                 let txtCategory = document.getElementById('sltCategory').textContent.toString();
                                 let txtProductLine = document.getElementById('sltProductLine').textContent.toString();
-                                let txtCurrency = document.getElementById('sltCurrency').textContent.toString();
-
-                                // console.log("txtCustomerID")
-                                // console.log(txtCustomerID)
-                                // console.log(checkNameCustomerID(bioCustomer, txtCustomerID))
-                                // console.log("txtCategory")
-                                // console.log(txtCategory)
-                                // console.log(checkName(categoryData, txtCategory))
-                                // console.log("txtProductLine")
-                                // console.log(txtProductLine)
-                                // console.log(checkName(bioProductLine, txtProductLine))
-                                // console.log("txtCurrency")
-                                // console.log(txtCurrency)
-                                // console.log(checkName(currencyData, txtCurrency))
-
-                                // console.log("accountTitle")
-                                // console.log( document.getElementById('txtAccountTitle').value)
-                                // console.log("shortTitle")
-                                // console.log( document.getElementById('txtShortTitle').value)
-                                // console.log("joinNotes")
-                                // console.log(document.getElementById('txtJoinNotes').value)
-
-
-
-
+                                let txtCurrency = document.getElementById('sltCurrency').textContent.toString();    
+                                let txtAccountOfficer = document.getElementById('sltAccountOfficer').textContent.toString(); 
+                                let txtIDJoinHolder = document.getElementById('sltIDJoinHolder').textContent.toString();
+                                let txtRelationCode = document.getElementById('sltRelationCode').textContent.toString();
+                                console.log("happy")
+                                console.log(checkNameCustomerID(bioCustomer, txtIDJoinHolder))
 
                                 axios.post('https://cb-be.azurewebsites.net/account/debit_account/open',{
                                     accountTitle: document.getElementById('txtAccountTitle').value,
@@ -225,10 +218,14 @@ function OpenAccount() {
                                     category: checkName(categoryData, txtCategory),
                                     productLine: checkName(bioProductLine, txtProductLine),
                                     currency: checkName(currencyData, txtCurrency),
+                                    accountOfficer: checkName(bioAccountOfficer, txtAccountOfficer),
+                                    joinHolderID: checkNameCustomerID(bioCustomer, txtIDJoinHolder),
+                                    relationCode: checkName(bioRelationCode, txtRelationCode),
+
                                 })
                                 .then(res => {
-                                    // console.log("res")
-                                    // console.log(res)
+                                    console.log("open")
+                                    console.log(res)
                                     setButtonPopup(true)
 
                                 })

@@ -4,10 +4,14 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import Check_Custom from "./Check_Custom";
+import Close_Custom from "./Close_Custom";
+import Block_Custom from "./Block_Custom";
 
 
 function Actions({AccountCode}) {
     const [buttonPopup, setButtonPopup] = useState(false)
+    const [buttonPopupClose, setButtonPopupClose] = useState(false)
+    const [buttonPopupBlock, setButtonPopupBlock] = useState(false)
 
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -79,8 +83,20 @@ function Actions({AccountCode}) {
                                     }
                                 }
                             >Check</MenuItem>
-                            <MenuItem>Close</MenuItem>
-                            <MenuItem>Block</MenuItem>
+                            <MenuItem
+                                onClick={
+                                    () => {
+                                        setButtonPopupClose(true)
+                                    }
+                                }
+                            >Close</MenuItem>
+                            <MenuItem
+                                onClick={
+                                    () => {
+                                        setButtonPopupBlock(true)
+                                    }
+                                }
+                            >Block</MenuItem>
                             <MenuItem>Un-Block</MenuItem>
                         </Menu>
                         <Check_Custom 
@@ -88,6 +104,18 @@ function Actions({AccountCode}) {
                             setTrigger={setButtonPopup}
                             AccountCode={AccountCode}
                         ></Check_Custom>
+                        <Close_Custom
+                            trigger={buttonPopupClose}
+                            setTrigger={setButtonPopupClose}
+                            AccountCode={AccountCode}
+                        >
+                        </Close_Custom>
+                        <Block_Custom
+                            trigger={buttonPopupBlock}
+                            setTrigger={setButtonPopupBlock}
+                            AccountCode={AccountCode}
+                        >
+                        </Block_Custom>
                     </Box>
         </div>
     )

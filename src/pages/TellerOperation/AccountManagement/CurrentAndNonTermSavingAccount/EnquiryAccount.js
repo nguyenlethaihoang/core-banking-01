@@ -3,6 +3,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField_Custom from "../../../../components/TextField_Custom";
 import Select_Custom from "../../../../components/Select_Custom";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -124,7 +125,7 @@ function EnquiryAccount() {
                                     }).then(response => {
                                         console.log("enquiry account")
                                         console.log(response.data)
-                                        const dataRes = response.data
+                                        const dataRes = response.data.data
                                         setBioGetAll(dataRes); 
                                          
                                     })
@@ -151,6 +152,25 @@ function EnquiryAccount() {
                               }}
                         >   
                             Search
+                        </Button>
+                        <Button 
+                            sx={{ 
+                                // display: "flex", 
+                                marginLeft: "20px",
+                                // backgroundColor: "#333", 
+                                // flexWrap: "wrap"
+                            }}
+                            variant="outlined" 
+                            color="error"
+                            startIcon={<DeleteSweepIcon />}
+                            onClick={() => {
+                                rows = [];
+                                // setBioGetAll(rows)
+                                setBioRow(rows)
+                                
+                              }}
+                        >
+                            Hide
                         </Button>
                     </div>
                     <div

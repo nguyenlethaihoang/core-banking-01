@@ -6,6 +6,7 @@ import './Check_Custom.css'
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import Select_Value_Custom from '../../../../../components/Select_Value_Custom';
+import TextField_Value_Custom from '../../../../../components/TextField_Value_Custom';
 
 
 const categoryData = [
@@ -25,6 +26,8 @@ function Check_Custom(props1) {
         const fetchDataFilled = async () => {
             const response = await fetch(`${tmpURL}`);
             const data = await response.json();
+            console.log("Du lieu debitaccount nhan tu backend");
+            console.log(data.data)
             setBioFilled(data.data);  
         };  
         fetchDataFilled();
@@ -42,6 +45,17 @@ function Check_Custom(props1) {
         fetchDataCustomer();
     }, []);
 
+    const [bioRelationCode, setBioRelationCode] = useState([]);
+    useEffect(() => {
+        const fetchDataRelationCode = async () => {
+            const response = await fetch(`https://cb-be.azurewebsites.net/storage/get_relation`);
+            const data = await response.json();
+            console.log("relation")
+            console.log(data.rows)
+            setBioRelationCode(data.rows);  
+        };
+        fetchDataRelationCode();
+    }, []);
 
     const [bioProductLine, setBioProductLine] = useState([]);
     useEffect(() => {
@@ -83,6 +97,7 @@ function Check_Custom(props1) {
             <h1>
                 Open Account 
             </h1>
+            
             <div
                 style={{ 
                     display: "flex", 
@@ -111,6 +126,16 @@ function Check_Custom(props1) {
                 <IconButton></IconButton>
             </div>
             <div
+                style={{ 
+                    display: "flex", 
+                    width: "100%", 
+                    flexWrap: "wrap",
+                    paddingBottom: "20px"
+                }}
+            >
+                <h3>Account Code: {bioFilled.id} </h3>
+            </div>
+            <div
                 id='foo'
                 style={{ 
                     display: "flex", 
@@ -118,13 +143,13 @@ function Check_Custom(props1) {
                     flexWrap: "wrap"
                 }}
             >
-                
+                 
                 <Select_Value_Custom props1="Customer ID" props2="35" props3="city" props4={bioCustomer} props5={bioFilled} props6="CustomerID"/>
                 <Select_Value_Custom props1="Category" props2="35" props3="city" props4={categoryData} props5={bioFilled} props6="Category"/>
                 <Select_Value_Custom  props1="Product Line" props2="35" props3="city" props4={bioProductLine} props5={bioFilled} props6="ProductLine"/>
                 <Select_Value_Custom props1="Currency" props2="15" props3="city" props4={currencyData} props5={bioFilled} props6="Currency"/>
-                <TextField_Custom props1="Account Title" props2="35" props3="YES"/>
-                <TextField_Custom props1="Short Title" props2="35" props3="YES"/>
+                <TextField_Value_Custom props1="Account Title" props2="40" props3="YES" props4={bioFilled.AccountTitle}/>
+                <TextField_Value_Custom props1="Short Title" props2="40" props3="YES" props4={bioFilled.ShortTitle}/>
                 <Select_Value_Custom props1="Account Officer" props2="25" props3="account_officer" props4={bioAccountOfficer} props5={bioFilled} props6="AccountOfficer"/>
                 <Select_Value_Custom props1="Charge Code" props2="25" props3="account_officer" props4={bioChargeCode} props5={bioFilled} props6="ChargeCode"/>
             </div>
@@ -143,8 +168,8 @@ function Check_Custom(props1) {
                 
                 <br/>
                 <Select_Value_Custom props1="ID Join Holder" props2="35" props3="account_officer" props4={bioCustomer} props5={bioFilled} props6="JoinHolderID"/>
-                <Select_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioAccountOfficer}/>
-                <TextField_Custom props1="Join Notes" props2="35" props3="NO"/>
+                <Select_Value_Custom props1="Relation Code" props2="35" props3="account_officer" props4={bioRelationCode} props5={bioFilled} props6="RelationCode"/>
+                <TextField_Value_Custom props1="Join Notes" props2="35" props3="NO" props4={bioFilled.JoinNotes}/> 
 
             </div>
 
